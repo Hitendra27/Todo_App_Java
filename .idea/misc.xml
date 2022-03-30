@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_sharp_library_add_24.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.5726495726495726" />
+        <entry key="app/src/main/res/layout/create_activity.xml" value="0.15654205607476634" />
+        <entry key="app/src/main/res/layout/create_category_fragment.xml" value="0.17268041237113402" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

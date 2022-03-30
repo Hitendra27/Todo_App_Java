@@ -1,0 +1,70 @@
+package com.example.activityfragmentcomm;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+public class MainActivity extends AppCompatActivity {
+
+    public static final int REQ_CODE_OPEN_TODO = 1234; // Random.com
+    private ArrayAdapter<String> adapter;
+    private ListView lvDisplayTodo;
+    private FloatingActionButton createTodo;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        initViews();
+
+    }
+
+    private void initViews() {
+        adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1);
+
+        lvDisplayTodo = findViewById(R.id.lv_display_todo);
+        lvDisplayTodo.setAdapter(adapter);
+        createTodo = findViewById(R.id.fab_add_todo);
+
+        createTodo.setOnClickListener(this::openCreateActivity);
+    }
+
+    private void openCreateActivity(View view) {
+        Intent createTodoActivity = new Intent();
+        createTodoActivity.setClass(this, CreateActivity.class);
+        //startActivity(createTodoActivity);
+        startActivityForResult(createTodoActivity ,
+                REQ_CODE_OPEN_TODO);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (requestCode == REQ_CODE_OPEN_TODO){
+            if (resultCode == RESULT_OK){
+                if (data != null){
+                    String newTodo = data.getStringExtra(CreateActivity.KEY_NEW_TODO);
+
+                    updateAdapter(newTodo);
+                }
+            }
+        }
+    }
+
+    private void updateAdapter(String newTodo) {
+        adapter.add(newTodo);
+    }
+}

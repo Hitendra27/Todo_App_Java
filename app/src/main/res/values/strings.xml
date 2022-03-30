@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ActivityFragmentComm</string>
+    <string name="btn_text_create">Create</string>
+    <string name="create_a_new_category">Create a new Category</string>
+</resources>
