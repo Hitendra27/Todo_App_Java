@@ -11,28 +11,32 @@ import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final int REQ_CODE_OPEN_TODO = 1234; // Random.com
-    private ArrayAdapter<String> adapter;
+    private CustomAdapter adapter;
     private ListView lvDisplayTodo;
     private FloatingActionButton createTodo;
+    private List<TodoTask> dataSet = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         initViews();
 
     }
 
     private void initViews() {
-        adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1);
-
+//        adapter = new ArrayAdapter<>(this,
+//                android.R.layout.simple_list_item_1);
+//        adapter = new CustomAdapter(this,
+//                android.R.layout.simple_list_item_2);
         lvDisplayTodo = findViewById(R.id.lv_display_todo);
-        lvDisplayTodo.setAdapter(adapter);
+//        lvDisplayTodo.setAdapter(adapter);
         createTodo = findViewById(R.id.fab_add_todo);
 
         createTodo.setOnClickListener(this::openCreateActivity);
@@ -57,14 +61,22 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK){
                 if (data != null){
                     String newTodo = data.getStringExtra(CreateActivity.KEY_NEW_TODO);
-
-                    updateAdapter(newTodo);
+                    String newCategory = data.getStringExtra(CreateActivity.KEY_NEW_CAT);
+                    updateAdapter(newTodo, newCategory);
                 }
             }
         }
     }
 
-    private void updateAdapter(String newTodo) {
-        adapter.add(newTodo);
+    private void updateAdapter(String newTodo, String newCategory) {
+        TodoTask todoTask = new TodoTask();
+        todoTask.setTodoCategory(newCategory);
+        todoTask.setTodoName(newTodo);
+
+        dataSet.add(todoTask);
+        adapter = new CustomAdapter(this, dataSet);
+        lvDisplayTodo.setAdapter(adapter);
+
+        //adapter.add(todoTask);
     }
 }
